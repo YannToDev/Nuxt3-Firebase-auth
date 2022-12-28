@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app";
+import { getAuth } from "@firebase/auth";
 
 export default defineNuxtPlugin((nuxtApp) =>{
 
@@ -17,6 +18,11 @@ export default defineNuxtPlugin((nuxtApp) =>{
     // Initialize Firebase
     const app = initializeApp(firebaseConfig)
 
-    initUser()
+    initUser();
 
+    // pour le cas ou l'on a définit le routeMiddleware comme un plugin et non 
+    // un fichier du dossier middleware.
+    //  const auth = getAuth();
+    // nuxtApp.vueApp.provide('auth', auth);
+    // nuxtApp.provide('auth', auth);
 })

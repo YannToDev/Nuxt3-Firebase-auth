@@ -50,13 +50,13 @@ export const initUser = () => {
     onAuthStateChanged(auth,(user) => {
 
         if(user){     
-            console.log("Auth changed",user);
-            firebaseUser.value = user;
+            // console.log("Auth changed",user);
+            // firebaseUser.value = user;
             
         } else{
            
-            console.log("Auth changed",user);
-            firebaseUser.value = user;
+            // console.log("Auth changed",user);
+            // firebaseUser.value = user;
         }
 
         firebaseUser.value = user;
