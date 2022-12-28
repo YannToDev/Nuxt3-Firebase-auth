@@ -1,4 +1,3 @@
-
 import { getAuth,createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "firebase/auth";
 
 const firebaseState = reactive({
@@ -38,18 +37,29 @@ export const signInUser = async(email:string,password:string) => {
 };
 
 // ------ Méthode qui permet d'initialiser un utilisateur et de surveiller son état de co/déco ------
-export const initUser = async() => {
+// 1. on définit une variable firebaseUser qui va être égale au composable contenant le state
+// 2. on l'initialise avec la valeur du currentUser accessible grâce au auth de firebase.
+export const initUser = () => {
+
+    const router = useRouter()
 
     const auth = getAuth();
+    const firebaseUser = useFirebaseUser();
+    firebaseUser.value = auth.currentUser;
     
-    onAuthStateChanged(auth,(data) => {
+    onAuthStateChanged(auth,(user) => {
 
-        if(data){     
-            user.value = data
+        if(user){     
+            console.log("Auth changed",user);
+            firebaseUser.value = user;
+            
         } else{
-            user.value = null;
+           
+            console.log("Auth changed",user);
+            firebaseUser.value = user;
         }
-        console.log(user.value);
+
+        firebaseUser.value = user;
     });
 };
 

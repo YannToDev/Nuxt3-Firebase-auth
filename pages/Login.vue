@@ -1,22 +1,32 @@
 <template>
     <div>
         <h1 class="text-center">Login View</h1>
-        <p v-if="user">{{ user.email }}</p>
-        <p v-if="state.errorCode">{{ state.errorCode }}</p>
+        <!-- <p v-if="user">{{ user.email }}</p>
+        <p v-if="state.errorCode">{{ state.errorCode }}</p> -->
 
         <div class="flex max-w-2xl mx-auto">
-            <button @click="signIn"  class="bg-green-400 py-2 px-4  rounded-md mx-auto block">Sign In</button>
-            <button @click="signOut" class="bg-blue-400 py-2 px-4  rounded-md mx-auto block">Sign Out</button>
+            <button v-if="!firebaseUser" @click="signIn"  class="bg-green-400 py-2 px-4  rounded-md mx-auto block">Sign In</button>
+            <button v-else @click="signOut" class="bg-blue-400 py-2 px-4  rounded-md mx-auto block">Sign Out</button>
         </div>
 
-        <pre v-if="user">
-            {{ user }}
-        </pre>
+        <div v-if="firebaseUser">
+            <client-only>
+                <pre>
+                    {{ firebaseUser }}
+                </pre>
+            </client-only>
+        </div>
+
+        <div v-else>
+            <p>User is signed out</p>
+        </div>
 
     </div>
 </template>
 
 <script setup lang="ts">
+
+    const firebaseUser = useFirebaseUser();
 
      const userInfos = reactive({
         email:'',
